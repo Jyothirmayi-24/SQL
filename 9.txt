@@ -1,0 +1,199 @@
+		DDL
+Data Definition language		DBA,DB DESIGNER
+	CREATE 
+	ALTER
+	DROP	
+	TRUNCATE
+
+Data types
+	NUMBER (5)				- 0 TO 99999
+	NUMBER (4,2)			-	0 to 99.99	
+	CHAR						- CHAR TYPE OF data
+	VARCHAR,VARCHAR2	- variable char type
+	DATE						- dd-mon-yy
+	BOOLEAN					- TRUE or FALSE
+	LOB
+		LARGE OBJECTS
+								CLOB							
+								BFILE
+
+	int		2		-32768 to +32767
+
+
+
+
+CREATE command used to create data base objects
+	objects
+		users
+		tables
+		views
+		synonyms
+		sequence
+
+creating tables		
+	syntax
+	create table <tname> ( col1 datatype(size) , col2 datatype(size) , ....);
+
+NOTE:1. No space is allowed within the column name
+		2. Only _ (underscore) ,digits are allowed 
+		3. column name must start with alphabet,underscore not with digit
+student
+	student number,name,class 
+ACTUAL			COL NAME				DATATYPE	SIZE
+student number		STNO,SNO,STU_NO		NUMBER		6	0 to 999999
+NAME				STU_NAME,SNAME		CHAR			15
+CLASS				CLASS						CHAR			10
+
+EX:
+	CREATE TABLE STU (SNO NUMBER(6),	
+		SNAME CHAR(15),CLASS CHAR(10) );
+Table created
+
+
+NUMBER(7,2)
+	99999.99
+create a train table with train number,name ,date of journey
+	col							datatype					size
+	train_no,tno,trno			number						5
+	trainname,tr_name,tname	char,varchar,varchar2		15
+	date_of_journey,doj			date						
+
+
+CREATE TABLE train(train_no number(6),tname varchar2(15), doj date);
+
+to list the tables available in user
+	select * from tab;
+
+To see the structure of the Table
+	DESCRIBE <tname>;
+ex:
+		describe student;
+SQL> desc stu;
+
+
+ALTER
+	To modify/add/DROPPING column(s) from the table	
+
+alter table <tname> ADD / MODIFY/DROP ( col1 datatype(size) ,  ....); 
+
+To add student dob to the table
+	alter table stu add(dob date);
+
+
+ Name                                      Null?    Type
+ ----------------------------------------- -------- -------------
+ SNO                                                    NUMBER(5)
+ SNAME                                               CHAR(15)
+ CLASS                                                CHAR(10)
+ DOB                                                    DATE
+
+to drop a particular column
+
+	alter table student drop column class;
+
+To modify the column data type of SNAME
+
+	alter table stu modify (sname varchar2(12));
+
+		***DROP command ***
+syntax:
+	DROP table <name>;
+ex: drop table stu;
+
+Truncate
+	to delete the rows of the table,but not the structure of the table
+	truncate table <name>
+ex:
+	truncate table stu;
+
+Difference b/w DDL and DML??
+Why DDL commands cant undo??
+DDl is a DB realated in which we can defines the structure of the bada base but the DML is a data manipulation language which is help to managijng and manipulating the data base
+until and unless stores in DB. 
+
+			Integrity Constraints
+
+	Validation of record(s) before entering into the database(table).
+
+PRIMARY KEY:
+	Not allows duplicates+ null values	** Only one per table
+		It was the identity of the table row
+ex: sno,train_no,acc_no,aadhar no
+
+NOT NULL: 
+			NOT ALLOWS NULL values,but allows duplicate
+ex: SNAME,TRAIN_NAME
+null means EMPTY,not even 0 , ' '
+
+UNIQUE: not allows duplicates but allows null	
+
+ex: insta id,fb id	
+
+CHECK: 
+		to write our own validation.
+	ex: marks 		between 0 to 100
+	     course		ECE,EEE,CSE,IT	
+		gender		male,female
+
+	check (col <cond>)
+
+Foreign key
+	to represent relation ship between 2 or more tables
+	ex: dept	deptno(pk)
+				|
+	EMP	DEPTNO(fk)
+syntax	
+	col references table(col)
+ex: EMP( ....,  deptno number(4) references dept(deptno)
+
+syntax of creating table with constraints
+	
+create table <tname> ( col1 datatype(size) <constraint> , col2 datatype(size)  <constraint>, ....);
+
+ex:	CREATE TABLE STU (SNO NUMBER(5) primary key,
+		SNAME CHAR(15) not null,
+		CLASS CHAR(10)  check (class in('EEE','ECE','CSE','CIVIL')));
+
+alter table student add (	mobile NUMBER(10) check( MOBILE>6000000000));
+
+insert into stu values(106,'abc','ECE',6789012345);
+INSERT INTO STUDENT VALUES(103,'ABC','ece',6789012345);
+
+unique constraint (SCOTT.SYS_C005212) violated
+
+
+Truncate
+he TRUNCATE TABLE statement is used to remove all records from a table in Oracle. It performs the same function as a DELETE statement without a WHERE clause.
+syntax
+	truncate <table>;
+
+drop vs truncate
+
+In SQL, the DROP command is used to remove the whole database or table indexes, data, and more. Whereas the TRUNCATE command is used to remove all the rows from the table. 
+
+
+
+
+
+student	parent 
+ -> exam  	child
+
+	exam
+		sno	number 	reference from Student table
+		m1	number
+		m2	number
+		m3	number
+			
+create table exam( sno number(5) references stu(sno),
+		m1 number(3) check (m1 between 0 and 100),
+		m2 number(3) check (m2 between 0 and 100),
+		m3 number(3) check (m3 between 0 and 100));
+
+CREATE table ATTEND(SNO NUMBER(5) REFERENCES STU(SNO),
+		NODAYS NUMBER(3),PRESENT NUMBER(3));
+
+
+
+INSERT INTO EXAM VALUES(10,55,55,66);
+integrity constraint (SCOTT.SYS_C005216) violated - parent key not found
+

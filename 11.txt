@@ -1,0 +1,130 @@
+DATA BASE objects
+	views
+	sequence
+	
+view:
+
+	Logical table,which is partitioned
+
+	dead lock
+		tableA
+	user1		user2
+	write		read
+
+SQL> grant create view to scott;
+
+Grant succeeded.
+
+SQL> connect scott/tiger;
+	creating view
+	create VIEW <vname> as SELECT statement;
+
+create a view with empno,ename,job,sal of those emps who works as clerk
+	create view clerk_view as select empno,ename,job,sal from emp where job='CLERK';
+
+View created.
+
+	
+			Working with view
+
+	same as table,we can do all transactions,including insert,delete and update
+
+note: MANDATORY TO have " primary key column"
+
+insert into dview values('IT','HYD')
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("SCOTT"."DEPT"."DEPTNO")
+
+to view the data of the view
+	select * from clerk_view;
+
+to insert into the view
+	insert into clerk_view values(333,'ABC','CLERK',5000);
+SELECT * FROM CLERK_VIEW;
+
+SELECT * FROM EMP;
+
+TO DELETE A Record from view
+	delete from clerk_view where empno=333;
+
+TO DROP A VIEW 
+	DROP VIEW <VNAME>;
+EX: drop view clerk_view;
+
+COMPLEX VIEW: 2 or more tables together
+
+	CREATE VIEW EMP_DEPT AS SELECT ENAME,JOB,SAL,DNAME FROM EMP E ,DEPT D WHERE E.DEPTNO=D.DEPTNO AND JOB='MANAGER';
+
+
+		SEQUENCE
+			to generate numbers without manual representation
+	sequences are independant
+
+	CREATE sequence <name>  start with <num>
+			minvalue <n>
+			maxvalue <n>
+			increment by <n>
+			CYCLE / NOCYCLE 
+			cache/nocache;
+MIN 1000
+MAX 10000
+START WITH 5000
+
+no sequence from 1000 to 1010	 
+	increment by 3
+	starting from 1005	cycle
+	18ECE001
+1005
+	1008  
+
+		1000
+			1003	1006	1009	
+								1000
+		
+	to find the current value of the sequence
+	name . currval
+
+	to find the next value of the sequence
+	name . nextval
+
+ex:		create sequence nos start with 50 minvalue 10 maxvalue 99 
+		increment by 10  CYCLE nocache;	
+
+testing purpose creating dummy table
+	create table a(sno number(5));
+
+insert into a values(no.nextval);
+insert into DEPT values(nos.nextval,'&DNAME','&LOC');
+
+	select * from a;
+SQL> SELECT * FROM A;
+
+       SNO
+----------
+      1000
+      1002
+      1004
+      1006
+      1008
+      1010
+      1000
+      1002
+      1004
+
+9 rows selected.
+
+
+SQL>  select nos.currval from dual;
+
+   CURRVAL
+----------
+      1009	
+
+select nos.nextval from dual;
+ NEXTVAL
+--------
+    1000
+2023
+20221d0XjXXX
+202111XXXX

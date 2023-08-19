@@ -1,0 +1,353 @@
+statements are of 3 types
+	sequential
+	branching 
+	looping
+
+Branching statements
+	if family
+	1.simple if
+	2. if else
+	3. elsif ladder
+	case statement
+Branching statements will return BOOLEAN values(True or False)
+
+1.simple if
+	syntax
+		if cond then
+			Tstates
+		end if ;
+
+-- check the no is positive or not
+	DECLARE
+		a number:=&a;
+	BEGIN
+		if  a>0 THEN
+			dbms_output.put_line(a || ' is a +ve no');
+		END IF;
+		dbms_output.put_line('END');
+	END;	
+	/
+545 is a +ve no
+END
+
+Enter value for a: -34
+END
+
+WAP to check the given char is A or not
+
+	DECLARE
+		C CHAR:='&C';
+	Begin
+		if c='A'  OR C='a' then
+			dbms_output.put_line(c || ' is A');
+		end if;
+	dbms_output.put_line( ' END');
+	END;
+	/
+
+A is A
+END
+
+Enter value for c: R
+old   2:   C CHAR:='&C';
+new   2:   C CHAR:='R';
+END
+
+Enter value for c: a
+old   2:   C CHAR:='&C';
+new   2:   C CHAR:='a';
+a is A
+END
+
+wap to accept a number and check whether it is equal to 10 or not
+
+2. if else
+
+	syntax
+		if cond then
+			Tstates
+		ELSE
+			Fstates
+		end if;
+
+-- bigger no among 2 nos
+	DECLARE
+		a number:=&a;
+		b number:=&b;
+	BEGIN
+		if  a>b THEN
+			dbms_output.put_line(a || ' is bigger no');
+		else
+			dbms_output.put_line(b || ' is bigger no');
+		END IF;
+	END;	
+	/
+	
+	
+Enter value for a: 55
+old   2:   a number:=&a;
+new   2:   a number:=55;
+Enter value for b: 6
+old   3:   b number:=&b;
+new   3:   b number:=6;
+55 is bigger no
+
+PL/SQL procedure successfully completed.	
+
+Enter value for a: 555
+old   2:   a number:=&a;
+new   2:   a number:=555;
+Enter value for b: 6778
+old   3:   b number:=&b;
+new   3:   b number:=6778;
+6778 is bigger no
+
+PL/SQL procedure successfully completed.
+
+
+--smaller no
+-- 2 nos are equal 
+-- even or odd		if(mod(a,2)=0) then
+-- 3 nos are eqal or not 		if a=b and a=c then
+-- no is divisible by 5,7 or not
+-- accept a char and check whether it is alphabet or not
+				alphabet
+				A - Z
+				a  - z
+		ASCII values
+A 	- 	Z		-> 	65 	- 90	
+a	-	z		->	97   - 122
+0 	-	9		-> 	48  -  57 
+
+DECLARE
+	C CHAR:='&C';
+Begin
+	if c >='A' and  c<='z'  then
+		dbms_output.put_line(c || ' is an ALPHABET');
+	else
+		dbms_output.put_line(c || ' is NOT an ALPHABET');
+	end if;
+END;
+/
+
+Enter value for c: T
+old   2:   C CHAR:='&C';
+new   2:   C CHAR:='T';
+T is an ALPHABET
+
+Enter value for c: p
+old   2:   C CHAR:='&C';
+new   2:   C CHAR:='p';
+p is an ALPHABET
+
+Enter value for c: 5
+old   2:   C CHAR:='&C';
+new   2:   C CHAR:='5';
+5 is NOT an ALPHABET
+
+-- accept a char and check whether it is A or not
+	
+-- even or odd	
+DECLARE
+		a number:=&a;
+
+	BEGIN		
+		if  mod(a,2)=0 THEN
+			dbms_output.put_line(a || ' is Even no');
+		else
+			dbms_output.put_line(a || ' is Odd no');
+		END IF;
+	END;	
+	/	
+
+
+-- no is divisible by 5,7 or not
+	DECLARE
+		a number:=&a;
+
+	BEGIN		
+		if  mod(a,5)=0 AND MOD(A,7)=0 THEN
+			dbms_output.put_line(a || ' is Divisble by 5,7');
+		else
+			dbms_output.put_line(a || ' is not divisible by 5,7 no');
+		END IF;
+	END;	
+	/
+
+
+
+3.NESTED IF
+	IF COND1 THEN
+		IF COND2 THEN
+			TSTATES
+		ELSE
+			FSTATES
+		END IF;
+	ELSE
+		IF COND3 THEN
+			TSTATES
+		ELSE
+			FSTATES
+		END IF;
+	END IF;
+
+-- biggest of 3 nos
+DECLARE
+	a number:=&a;
+	b number:=&b;
+	c number:=&c;
+BEGIN
+	if  a>b THEN
+		if a>c then
+			dbms_output.put_line(a || ' is biggest no');
+		else
+			dbms_output.put_line(c || ' is biggest no');
+		end if;
+	else
+		if b>c then
+				dbms_output.put_line(b || ' is biggest no');
+		else
+			dbms_output.put_line(c || ' is biggest no');
+		end if;
+	END IF;
+END;	
+/
+
+200	0	300		1000
+2000
+
+200		3000		1000
+3000
+
+200		300		1000
+1000
+
+Enter value for a: 10000
+old   2:   a number:=&a;
+new   2:   a number:=100;
+Enter value for b: 2000
+old   3:   b number:=&b;
+new   3:   b number:=2000;
+Enter value for c: 300
+old   4:   c number:=&c;
+new   4:   c number:=300;
+2000 is biggest no
+
+PL/SQL procedure successfully completed.
+
+HW
+SMallest of 3 nos
+
+
+4 ELSIF LADDER
+	syntax
+
+	IF cond1 THEN
+		states
+	ELSIF cond2 then
+		states
+
+	ELSIF cond3 then
+		states
+	...
+	ELSIF cond n then
+		states
+	ELSE
+		states
+	END IF;
+
+-- biggest of 3 nos
+	DECLARE
+		a number:=&a;
+		b number:=&b;
+		c number:=&c;
+	BEGIN
+		if  a>b AND a>c THEN
+			dbms_output.put_line( a||'  is biggest no');
+		ELSIF b>a AND b>c THEN
+			dbms_output.put_line(b || ' is biggest no');
+		ELSE
+			dbms_output.put_line(c || ' is biggest no');
+		END IF;
+	END;	
+	/
+	
+Enter value for a: 5
+old   2:   a number:=&a;
+new   2:   a number:=5;
+Enter value for b: 76
+old   3:   b number:=&b;
+new   3:   b number:=76;
+Enter value for c: 8
+old   4:   c number:=&c;
+new   4:   c number:=8;
+76 is biggest no
+
+PL/SQL procedure successfully completed.
+
+-- SMALLEST OF 3 NOS
+-- accept choice value ,if choice 1-add 2 - sub 3 - mul else reminder of 2 nos
+-- accept a char and print color ,if
+	r- red	g- green 	b- blue	 else white
+
+
+
+-- 2 nos are equal 
+	declare
+		a number:=&a;
+		b number:=&b;
+	begin
+		if a=b then
+			dbms_output.put_line('both are equal');
+		else
+			dbms_output.put_line('both are not equal');
+		end if;
+	end;
+	/
+
+-- accept a char and check whether it is alphabet or not
+	declare
+		c char:='&c';
+	begin
+		if c>='A'   AND c<='z' then
+			dbms_output.put_line(c || '   is an alphabet');
+		elSe
+			dbms_output.put_line(c || '   is NOT an alphabet');
+		END IF;
+	end;
+	/	
+
+
+-- accept a char and print color ,if
+	r- red	g- green 	b- blue	 else white
+	
+	declare
+		c char:='&c';
+	begin
+		if c='R'   OR c='r' then
+			dbms_output.put_line(c || '   IS RED');
+		elsif c='G'   OR c='g' then
+			dbms_output.put_line(c || '   IS GREEN');
+		elsif c='B'   OR c='b' then
+			dbms_output.put_line(c || '   IS BLUE');
+		ELSE
+			dbms_output.put_line(c || '   is WHITE');
+		END IF;
+	end;
+	/	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

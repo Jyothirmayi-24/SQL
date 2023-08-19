@@ -1,0 +1,265 @@
+		Looping or iterative statements
+Repetetive statements
+
+	3 types
+		1. Infinite loop
+		2. while loop
+		3. for loop
+
+	
+1. Infinite loop
+		no condition,incre/decre will be there. if you want to come out of loop ,use 'exit' statement
+		
+	syntax
+		LOOP
+			STATES
+		END LOOP;
+		
+-- to print 1 to 10 nos
+	declare
+		i NUMBER:=1;
+	begin
+		DBMS_OUTPUT.PUT_LINE('PRINITING 1..10 NOS');
+		LOOP
+			DBMS_OUTPUT.PUT_LINE( i );
+			i:=i+1;
+			exit when i>10;
+		end loop;
+		DBMS_OUTPUT.PUT_LINE( 'END' );
+	end;
+	/
+PRINITING 1..10 NOS
+1333
+END
+
+PRINITING 1..10 NOS
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+END
+
+-- to print 10 to 1 nos
+	declare
+		i NUMBER:=10;
+	begin
+		DBMS_OUTPUT.PUT_LINE('PRINITING 10..1 NOS');
+		LOOP
+			DBMS_OUTPUT.PUT_LINE( i );
+			i:=i-1;
+			exit when i<1;
+		end loop;
+		DBMS_OUTPUT.PUT_LINE( 'END' );
+	end;
+	/
+PRINITING 1..10 NOS
+21
+END
+
+-- TO PRINT 1 TO 50 EVEN NOS
+
+-- to print 100 to 50 ODD  nos
+	declare
+		i NUMBER:=99;
+	begin
+		DBMS_OUTPUT.PUT_LINE('PRINITING 100..50 ODD NOS');
+
+		LOOP
+			DBMS_OUTPUT.PUT( i || '    ' );
+			i:=i-2;
+			exit when i<50;		
+		end loop;
+		DBMS_OUTPUT.PUT_LINE( 'END' );
+	end;
+	/
+
+
+2. while loop
+	ENTRY condition checking statement,if condition returns TRUE ,then only enters into the loop.
+	syntax
+		while cond
+		loop
+			states
+			incr/decr
+		end loop;
+
+-- to print 1 to 10 nos
+	declare
+		i NUMBER:=1;
+	begin
+		DBMS_OUTPUT.PUT_LINE('PRINITING 1..10 NOS');
+		while i<=10
+		LOOP
+			DBMS_OUTPUT.PUT_LINE( i );
+			i:=i+1;
+		end loop;
+		DBMS_OUTPUT.PUT_LINE('END');
+	end;
+	/
+
+O/P 2
+PRINITING 1..10 NOS
+END
+
+
+-- print multiplication table of a required no
+	declare
+		n number:=&n;
+		 i number:=1;
+	begin
+		dbms_output.put_line('multiplication table of '||n);
+		
+		while i<=10
+		LOOP
+			dbms_output.put_line(n || '     X    '|| i || '    =    '  ||n*i);	
+			i:=i+1;
+		end loop;
+	end;
+	/
+Enter value for n: 5
+
+multiplication table of 5
+N		I		N*I(r)
+5     X    1    =    5
+5     X    2    =    10
+5     X    3    =    15
+5     X    4    =    20
+5     X    5    =    25
+5     X    6    =    30
+5     X    7    =    35
+5     X    8    =    40
+5     X    9    =    45
+5     X    10    =    50
+
+PL/SQL procedure successfully completed.
+
+Home work
+
+TO print multiplication table of  a no ,multiples from 10 to 1
+
+
+
+
+
+for loop
+	syntax
+	for var IN [reverse] min  .. max
+	loop
+		statemennts
+	end loop;
+
+-- print 1 ..10 nos
+
+declare
+		i NUMBER;
+	begin
+		DBMS_OUTPUT.PUT_LINE('PRINITING 1..10 NOS');
+		for i in   1..10
+			LOOP
+				DBMS_OUTPUT.PUT_LINE( i );
+			end loop;
+		DBMS_OUTPUT.PUT_LINE( 'END' );
+	end;
+	/
+PRINITING 1..10 NOS
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+END
+
+--PRINT 10 TO 1
+	declare
+		i NUMBER;
+	begin
+		DBMS_OUTPUT.PUT_LINE('PRINITING 10..1 NOS');
+		for i in  REVERSE 1..10
+			LOOP
+				DBMS_OUTPUT.PUT_LINE( i );
+			end loop;
+		DBMS_OUTPUT.PUT_LINE( 'END' );
+	end;
+	/
+	
+-- PRINT 1 TO 20 EVEN NOS
+-- print 100 to 50 odd nos
+-- print nos divisible by 5 b/w 100 to 200
+
+-- PRINT 1 TO 20 EVEN NOS
+declare
+		i NUMBER;
+	begin
+		DBMS_OUTPUT.PUT_LINE('PRINITING 1..20 even NOS');
+		for i in   1..20
+			LOOP
+				if mod(i,2)=0 then
+					DBMS_OUTPUT.PUT_LINE( i );
+				end if;
+			end loop;
+		DBMS_OUTPUT.PUT_LINE( 'END' );
+	end;
+	/
+
+Nested loop
+
+
+-- multiplication tables of 1..10
+declare
+		i NUMBER;
+		j number;
+	begin
+		DBMS_OUTPUT.PUT_LINE('Multiplication tables of 1.. 10');
+		for i in   1..10
+			LOOP
+				DBMS_OUTPUT.PUT_LINE('Table '||i);
+				for j in 1..10
+				loop
+						dbms_output.put_line(i || '     X    '|| j || '    =    '  ||i*j);	
+				end loop;
+		end loop;
+	end;
+	/
+
+
+accept choice value ,if choice 1-add 2 - sub 3 - mul else reminder of 2 nos
+declare
+	ch number:=&ch;
+	a number:=&a;
+	b number:=&b;
+begin
+	dbms_output.put_line('Arithmatic calculations');
+	dbms_output.put_line('1. add ');
+	dbms_output.put_line('2. sub ');
+	dbms_output.put_line('3. mul ');
+		if ch=1 then
+				r:=a+b;
+				dbms_output.put_line('add'||(a+b));
+
+		elsif ch=2 then
+					dbms_output.put_line('sub '||(a-b));
+		elsif ch=3 then
+					dbms_output.put_line('mul '||(a*b));
+		else
+				dbms_output.put_line(' wrong choice ');
+		end if;
+end;
+/
+
+
+
+
+	select statement in pl/sql
+	cursors
+

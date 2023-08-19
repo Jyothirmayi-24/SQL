@@ -1,0 +1,184 @@
+		PL/SQL
+Programming language for SQL
+	insert
+	update
+	delete
+	commit
+	rollback
+INSERT 6 RECORDS
+SAVE
+UPDATE 10 RECORDS
+SAVE
+
+		For manipulations on DATA
+
+	STRUCTURE OF pl/sql
+
+	DECLARE
+		VAR DATATYPE (SIZE);
+		...
+	BEGIN
+		executable states
+		....
+	[EXCEPTION ]
+		OPTIONAL
+	END;
+
+main ( )
+	{
+		VAR DECLARACATIONS
+		EXECUTABLE SATES
+	}
+
+To print a message or with var values we use
+		package 	    . method
+	DBMS_OUTPUT .  PUT_LINE( ' MESSAGE ' );
+
+ex:  
+	DBMS_OUTPUT .  PUT_LINE( 'WELCOME TO PL/SQL');
+	DBMS_OUTPUT .  PUT_LINE( ' a value = ' || a);
+
+		||  - concatenation operator
+
+
+	
+Write a PL/SQL program to print a message
+
+	-- First program in pl/sql
+	Declare
+	
+	BEGIN
+		DBMS_OUTPUT .  PUT_LINE( 'WELCOME TO PL/SQL');
+	END;		
+	/
+
+
+PL/SQL procedure successfully completed.
+
+note
+	SET SERVEROUTPUT ON;
+	when you work with sql ,we need to on server output ,so that we can
+			"display messages"
+o/p:
+
+WELCOME TO PL/SQL
+
+PL/SQL procedure successfully completed.
+
+
+
+	: =  -> assignment operator
+	=     ->  relation checking 
+a:=5		assigning
+a=5			relation	><  >=	<=		=	!=
+
+if a=5	 then
+
+Declaring & Accepting values to variables
+	var datatype(size) ;
+ex:	a number(5);
+
+initializing variables
+	var datatype(size) := val ;
+
+ex: 	a number(5) := 10;	99999
+	c char(5) := 'PROGR' ;
+	
+ACCEPTING VALUES AT runtime
+	
+	variable datatype(size) :=  &var ;		
+	& - for runtime values
+ex:
+		a number :=&a;
+		b varchar2 := ' &b';
+		c date :=' &c';
+	
+-- to add 2 numbers by accepting values at runtime
+	DECLARE
+		a number(5):=&a;
+		b  number(5):=&b;
+		c number(7):=0;
+	BEGIN
+		dbms_output.put_line(' A value = '||A);
+		dbms_output.put_line(' B value = ' ||b);
+		c:=a+b;
+		dbms_output.put_line(' Addition = ' ||c);
+	END;
+	/
+
+Enter value for a: 555
+old   2:   a number(5):=&a;
+new   2:   a number(5):=555;
+Enter value for b: 666
+old   3:   b  number(5):=&b;
+new   3:   b  number(5):=666;
+A value = 555
+B value = 666
+Addition = 1221
+
+PL/SQL procedure successfully completed.
+examples
+	1. multiply 3 numbers
+	2 . swap 2 numbers without using 3rd variable
+	3. square and cube of a number
+
+a=100		b=500
+c=100		
+a=500
+b=100
+a=500		b=100
+--swap 2 numbers
+	DECLARE
+		a number(5):=&a;
+		b  number(5):=&b;
+		c number(5);
+	BEGIN
+		dbms_output.put_line('Values before swapping');
+		dbms_output.put_line(' A value = ' ||a);
+		dbms_output.put_line(' B value = ' ||b);
+		--swapping
+		c:=a;
+		a:=b;
+		b:=c;
+		dbms_output.put_line('Values after swapping');
+		dbms_output.put_line(' A value = ' ||a);
+		dbms_output.put_line(' B value = ' ||b);
+	END;
+	/	
+
+Enter value for a: 100
+old   2:   a number(5):=&a;
+new   2:   a number(5):=100;
+Enter value for b: 500
+old   3:   b  number(5):=&b;
+new   3:   b  number(5):=500;
+Values before swapping
+A value = 100
+B value = 500
+Values after swapping
+A value = 500
+B value = 100
+
+PL/SQL procedure successfully completed.
+
+Swapping
+
+a=100		b=300
+
+c=a			c=100
+a=b			a=300
+b=c			b=100
+
+a=300		b=100
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,207 @@
+
+		DML(Data Manipulation Language)
+
+	manipulations on data(records)
+	insertion
+	deletion
+	updation
+	
+	commands
+		INSERT
+		DELETE
+		UPDATE
+		SELECT
+
+INSERT
+	Inserting of row(s) into the table.
+Syntax
+	Insert into <table> [ (col1,col2,...) ] values (val1,val2,val3,...);
+
+STU
+	SNO	NAME	CLASS MOBILE
+
+CREATE TABLE STU(SNO NUMBER(5) PRIMARY KEY,NAME VARCHAR2(15) NOT NULL,
+COURSE CHAR(10) CHECK ( COURSE IN('ECE','CIVIL','MECH','CSE')));
+
+to insert  a row with all columns
+
+ex:	insert into stu values (102,'SAI','ECE',9875646600);
+
+ADDING A  COLUMN TO THE TABLE
+	Alter table stu add(dob date);
+
+to insert  a row with SPECIFIED columns
+INSERT INTO STU (SNO,SNAME,CLASS) values(103,'DIVYA','CSE');
+
+Inserting rows at run time
+
+ex:	insert into stu values (&sno,'&name','&COURSE',&mobile,'&dob');
+
+insert into student values (102,'RAVI','ECE');
+
+check constraint (SCOTT.SYS_C005211) violated
+
+insert into student values (301,'RAVI','ECE');
+
+TO INSERT record at runtime		&
+insert into student values (&sno,'&Sname','&class','&dob');	
+
+SQL> insert into student values (&sno,'&name','&cOURSE','&dob'); 
+Enter value for sno: 1111
+Enter value for name: AAA
+Enter value for course: CIVIL
+Enter value for dob: 12-JAN-2000
+old   1: insert into student values (&sno,'&name','&cOURSE','&dob')
+new   1: insert into stu values (1111,'NAVEEN','CIVIL','12-JAN-2000')
+
+To insert the record(s) from an existing table
+
+	INSERT into <table> as select statement;
+
+create table studup (sno number,name varchar2(15),class char(10),mob number);
+ALTER TABLE STUDUP ADD(DOB DATE);
+
+select *from studup;
+
+inserting records from stu table
+	insert into studup   SELECT * FROM STU [WHERE SNO=101];
+
+UPDATE
+	To update a row(S) of a table
+syntax
+	update <table> set col1=val1 [ , col2=val2 , ...] [where <cond>];
+
+Ex:
+	TO UPDATE THE cLASS as CIVIL to all
+			UPDATE STU SET CLASS='CIVIL' ;
+TO update the class to 101
+	update stu set class='EEE' WHERE SNO=101;
+
+ex : to update the dob as 16-05-1998,mobile of student no 104
+
+	update stu set dob='16-may-98',mobile=9876543210 where sno=104;
+
+change the name of the student no 105 to VIJAY
+	UPDATE STUDENT SET DOB='10-JAN-1998' WHERE SNO=102;
+
+
+update student set COURSE='MECH' WHERE SNO=102;
+
+ADDING A COL CITY TO THE STUDENT TABLE
+	ALTER TABLE STU ADD(CITY CHAR(10));
+
+
+to update CITY to all the students as HYD
+		UPDATE STU SET CITY='HYD';
+
+	UPDATE STU SET CITY='KHM',CLASS='ECE' WHERE SNO=102;
+	7 rows updated.
+
+TO update city to RAVI as BZA
+	update student set city='BDCHM' where Sname='KUMAR';
+
+TO UPDATE MULTIPLE COLUMNS
+	class CSE		DOB as 03-05-98
+	update student set dob='03-may-98' ,COURSE='CSE' where sno=101;
+
+to update the values at runtime
+
+update stu set dob='&dob' ,MOBILE=&MOBILE where sno=&sno;
+
+TO UPDATE CITY TO specified records
+update stu set city=' ' WHERE SNO=777;
+
+DELETE
+	to delete record(S) from the table
+syntax:
+	delete from <table> [where <cond>];
+ex:TO DELETE all the rows from table
+
+	DELETE FROM STU;
+specified:
+
+	DELETE FROM STU WHERE SNO=102;
+
+	to delete all the rows from exam table
+	delete from STUDENT;
+	to delete the 101 record from the exam
+	delete from STUDENT where sno=101;
+
+Differance between DELETE Trucate and drop:
+
+The Delete command deletes one or more existing records fron the table in the data base.
+The DROP command drops the complete table from the database 
+The Trucate command deletes all the rows from the existing table, leaving the row the colunm names.
+
+DELETE   			VS 	drop
+	prog,end user		dba,designer
+	temp				permanant
+	undo				no undo(permanant)
+	onlyrecords			all records,columns and table delete
+
+update 			vs		ALTER
+DML					DDL
+RECORDS				structure
+temp					permanant
+need commit to save		no need
+
+		TCL
+	Transaction control lang
+	DML cannot save the data directly.To save or undo we need to use TCL
+
+	to save or undo the transaction(INSERT,UPDATE,DELETE)
+ 	
+	COMMANDS
+		COMMIT			to save permanantly
+		ROLLBACK		to undo the transaction
+		SAVEPOINT		book mark
+
+	start
+		commit;
+		insert 5 records
+		update 3 records
+		savepoint a;
+		insert 2 records
+		rollback to a;
+		savepoint TRANS2;
+
+
+dept
+	commit;
+	insert 2 records
+	update 1 record
+	savepoint a;
+	delete 2 records
+	rollback to a;
+	
+	insert into dept values (50,'MGMT','HYD');
+	insert into dept values (60,'HR','DEL');
+	UPDATE DEPT SET DNAME='ADMIN' WHERE DEPTNO=60;
+	SAVEPOINT A;
+	DELETE FROM DEPT WHERE DEPTNO=50;
+SQL> select * from dept;
+
+    DEPTNO DNAME          LOC
+---------- -------------- -------------
+        60 ADMIN          DEL
+        10 ACCOUNTING     NEW YORK
+        20 RESEARCH       DALLAS
+        30 SALES          CHICAGO
+        40 OPERATIONS     BOSTON
+
+	ROLLBACK TO A;
+
+  DEPTNO DNAME          LOC
+-------- -------------- ----------
+      50 MGMT           HYD
+      60 ADMIN          DEL
+      10 ACCOUNTING     NEW YORK
+      20 RESEARCH       DALLAS
+      30 SALES          CHICAGO
+      40 OPERATIONS     BOSTON
+
+	rollback;
+			DCL
+	Data Control language		DBA
+		GRANT	give permissions to the users
+		REVOKE	take back permissions from the users
